@@ -19,6 +19,19 @@ class ServerConfig:
     retries: int
     read_only: bool
 
+def get_local_ip():
+    s = None
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        local_ip = s.getsockname()[0]
+    except socket.error:
+        local_ip = None
+    finally:
+        if s:
+            s.close()
+    return local_ip
+
 class TFTPServer:
     def __init__(self, config: ServerConfig):
         self.config = config
@@ -179,7 +192,7 @@ class TFTPServer:
 
 def parse_args() -> Tuple[ServerConfig, bool]:
     parser = argparse.ArgumentParser(description="TFTP Server em Python")
-    parser.add_argument("--host", default="0.0.0.0")
+    parser.add_argument("--host", default=get_local_ip())
     parser.add_argument("--port", type=int, default=69)
     parser.add_argument("--directory", default="storage")
     parser.add_argument("--timeout", type=float, default=3.0)
