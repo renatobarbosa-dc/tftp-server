@@ -9,7 +9,7 @@ python server.py --port 6969 --directory data --verbose --read-only
 # Como rodar e acessar por outras máquinas:    
  - Preparando o Servidor (Onde o Python vai rodar) Crie a pasta storage ao lado dos scripts (onde os arquivos ficarão). 
 
- -*Importante:* O cliente nativo do Windows só consegue falar na porta 69. O código atualizado já aponta para a porta 69 por padrão. 
+ - *Importante:* O cliente nativo do Windows só consegue falar na porta 69. O código atualizado já aponta para a porta 69 por padrão. 
 
  - Por ser uma porta restrita (abaixo de 1024), você precisa rodar o script como Administrador (no Windows) ou usar sudo (no Linux/Mac). 
  
