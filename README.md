@@ -56,6 +56,8 @@ O TFTP é um protocolo simples de transferência de arquivos baseado em UDP. Ele
 C4Component
     title Diagrama de Componentes do Servidor TFTP
 
+    System_Ext(client, "Cliente TFTP Externo", "Qualquer cliente compatível com RFC 1350 (Windows, Linux, macOS).")
+
     Container_Boundary(server_app, "TFTP Server Application") {
         Component(cli_server, "Interface CLI", "Python/Argparse", "Trata argumentos de linha de comando e inicializa o servidor.")
         Component(server_core, "Servidor Core", "Python/Socket/Threading", "Gerencia o socket principal, escuta requisições e dispara threads para cada transferência.")
@@ -70,9 +72,8 @@ C4Component
     Rel(transfer_handler, packets, "Usa para codificar/decodificar pacotes")
     Rel(transfer_handler, fs, "Lê/Escreve arquivos")
 
-    Rel_External(client, "Cliente TFTP Externo", "UDP", "Envia requisições RRQ/WRQ")
-    Rel(client, server_core, "Inicia conexão", "UDP/69")
-    Rel(client, transfer_handler, "Troca de pacotes DATA/ACK", "UDP/Porta Efêmera")
+    Rel(client, server_core, "Inicia conexão (RRQ/WRQ)", "UDP/69")
+    Rel(client, transfer_handler, "Troca de pacotes (DATA/ACK)", "UDP/Porta Efêmera")
 ```
 
 ## Componentes do sistema
